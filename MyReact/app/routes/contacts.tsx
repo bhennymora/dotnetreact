@@ -7,6 +7,7 @@ import {
   deleteContact,
 } from "../services/api";
 import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 
 function useAsync<T>(fn: () => Promise<T>, deps: any[] = []) {
   const [data, setData] = useState<T | null>(null);
@@ -93,45 +94,47 @@ export default function Contacts() {
     <>
       <Header />
       <main className="main" style={{ marginTop: '80px' }}>
-      <section id="contacts" className="py-4">
-      <div className="container">
-        <div className="section-title mb-4">
-          <h2>Contacts Management</h2>
-          <p>Manage your contacts</p>
+        <section id="contacts" className="py-4">
+        <div className="container">
+            <div className="section-title mb-4">
+            <h2>Contacts Management</h2>
+            <p>Manage your contacts</p>
+            </div>
+            <div>
+            <div className="mb-4">
+                <button onClick={() => setEditing({ name: "", email: "", phone: "" })} className="btn btn-primary">
+                New Contact
+                </button>
+            </div>
+
+            {loader.loading && <div className="alert alert-info">Loading...</div>}
+            {loader.error && <div className="alert alert-danger">Load error: {loader.error}</div>}
+            {saveError && <div className="alert alert-danger mb-4">Save error: {saveError}</div>}
+
+            <ul className="list-unstyled">
+                {loader.data?.map((c) => (
+                <li key={c.id} className="p-3 border-bottom d-flex justify-content-between align-items-center">
+                    <div>
+                    <div className="fw-semibold">{c.name}</div>
+                    <div className="text-muted">{c.email} {c.phone && `· ${c.phone}`}</div>
+                    </div>
+                    <div className="d-flex gap-2">
+                    <button onClick={() => setEditing(c)} className="btn btn-sm btn-warning">Edit</button>
+                    <button onClick={() => handleDelete(c.id)} className="btn btn-sm btn-danger">Delete</button>
+                    </div>
+                </li>
+                ))}
+            </ul>
+
+            {editing && (
+                <ContactForm contact={editing} onCancel={() => setEditing(null)} onSave={handleSave} />
+            )}
+            </div>
         </div>
-        <div>
-          <div className="mb-4">
-            <button onClick={() => setEditing({ name: "", email: "", phone: "" })} className="btn btn-primary">
-              New Contact
-            </button>
-          </div>
-
-          {loader.loading && <div className="alert alert-info">Loading...</div>}
-          {loader.error && <div className="alert alert-danger">Load error: {loader.error}</div>}
-          {saveError && <div className="alert alert-danger mb-4">Save error: {saveError}</div>}
-
-          <ul className="list-unstyled">
-            {loader.data?.map((c) => (
-              <li key={c.id} className="p-3 border-bottom d-flex justify-content-between align-items-center">
-                <div>
-                  <div className="fw-semibold">{c.name}</div>
-                  <div className="text-muted">{c.email} {c.phone && `· ${c.phone}`}</div>
-                </div>
-                <div className="d-flex gap-2">
-                  <button onClick={() => setEditing(c)} className="btn btn-sm btn-warning">Edit</button>
-                  <button onClick={() => handleDelete(c.id)} className="btn btn-sm btn-danger">Delete</button>
-                </div>
-              </li>
-            ))}
-          </ul>
-
-          {editing && (
-            <ContactForm contact={editing} onCancel={() => setEditing(null)} onSave={handleSave} />
-          )}
-        </div>
-      </div>
-    </section>
+        
+        </section>
       </main>
+      <Footer />
     </>
   );
 }

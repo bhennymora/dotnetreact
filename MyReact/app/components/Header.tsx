@@ -1,16 +1,32 @@
 import { useEffect } from "react";
 
-export function Header() {
-  useEffect(() => {
-    // Load main JS for mobile nav toggle
+
+  // Load vendor scripts dynamically
+function loadScript(src: string) {
+  return new Promise((resolve, reject) => {
     const script = document.createElement("script");
-    script.src = "/assets/js/main.js";
+    script.src = src;
+    script.onload = resolve;
+    script.onerror = reject;
     document.body.appendChild(script);
-    return () => {
-      if (script.parentNode) {
-        script.parentNode.removeChild(script);
+  });
+}
+
+export  function Header() {
+  useEffect(() => {
+    // Load vendor JS libraries
+    loadScript("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js");
+    loadScript("/assets/vendor/aos/aos.js").then(() => {
+      if (typeof window !== "undefined" && "AOS" in window) {
+        (window as any).AOS.init();
       }
-    };
+    });
+    loadScript("/assets/vendor/glightbox/js/glightbox.min.js");
+    loadScript("/assets/vendor/swiper/swiper-bundle.min.js");
+    loadScript("/assets/vendor/waypoints/noframework.waypoints.js");
+    loadScript("/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js");
+    loadScript("/assets/vendor/isotope-layout/isotope.pkgd.min.js");
+    loadScript("/assets/js/main.js");
   }, []);
 
   return (
@@ -41,9 +57,7 @@ export function Header() {
           <i className="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <a className="btn-getstarted" href="/contacts">
-          Get Started
-        </a>
+        
       </div>
     </header>
   );

@@ -170,8 +170,8 @@ h6 {
   text-transform: uppercase;
 }
 
-.header .btn-getstarted,
-.header .btn-getstarted:focus {
+.btn-getstarted,
+.btn-getstarted:focus {
   color: var(--contrast-color);
   background: var(--accent-color);
   font-size: 14px;
@@ -181,8 +181,8 @@ h6 {
   transition: 0.3s;
 }
 
-.header .btn-getstarted:hover,
-.header .btn-getstarted:focus:hover {
+.btn-getstarted:hover,
+.btn-getstarted:focus:hover {
   color: var(--contrast-color);
   background: color-mix(in srgb, var(--accent-color), transparent 15%);
 }
