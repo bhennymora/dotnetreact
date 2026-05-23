@@ -1,0 +1,91 @@
+############################################
+# OS / Editor noise
+############################################
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+*.iml
+
+############################################
+# .NET / ASP.NET Core / EF Core
+############################################
+**/bin/
+**/obj/
+**/out/
+**/publish/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.DotSettings.user
+
+# EF Core migrations local artifacts (optional but common)
+Migrations/*Snapshot.cs
+
+# .NET local secrets
+secrets.json
+appsettings.*.Development.json
+
+# ASP.NET Core Kestrel / logs
+*.log
+logs/
+
+############################################
+# Node / React Router v7 / Vite
+############################################
+node_modules/
+**/node_modules/
+
+dist/
+build/
+coverage/
+
+# Vite cache
+.vite/
+.vite-cache/
+
+# React Router / bundler artifacts
+.cache/
+.parcel-cache/
+
+# environment files
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# npm / pnpm / yarn
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+############################################
+# TypeScript / JS build artifacts
+############################################
+*.tsbuildinfo
+
+############################################
+# Test outputs
+############################################
+coverage/
+test-results/
+
+############################################
+# Docker (if used)
+############################################
+.docker/
+docker-compose.override.yml
+
+############################################
+# Temporary / runtime files
+############################################
+tmp/
+temp/

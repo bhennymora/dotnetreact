@@ -1,0 +1,36 @@
+dotnet new webapi -n MyApi -f net10.0
+cd MyApi
+
+dotnet tool install --global dotnet-ef
+dotnet tool install -g dotnet-aspnet-codegenerator
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+
+dotnet add package Microsoft.EntityFrameworkCore.Sqlite
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+dotnet add package Swashbuckle.AspNetCore
+
+dotnet ef dbcontext scaffold \
+"Data Source=app.db" \
+Microsoft.EntityFrameworkCore.Sqlite \
+-o Models \
+-c AppDbContext \
+--context-dir Data \
+--use-database-names \
+--data-annotations \
+--force
+
+dotnet aspnet-codegenerator controller \
+-name ContactsController \
+-m contact \
+-dc AppDbContext \
+-api \
+-outDir Controllers
+
+dotnet aspnet-codegenerator controller \
+-name MessagesController \
+-m message \
+-dc AppDbContext \
+-api \
+-outDir Controllers

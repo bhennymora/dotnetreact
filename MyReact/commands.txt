@@ -1,0 +1,2 @@
+npm create vite@latest MyReact
+#use React Router7
